@@ -1,10 +1,27 @@
 from rest_framework import serializers
 from .models import *
 
+
+class PhoneSerializer(serializers.ModelSerializer):
+    full_number = serializers.CharField(read_only=True)
+    class Meta:
+        model = Phone
+        fields = ['id','country_code', 'national_number', 'full_number']
+        
+
+
+
+
+
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = '__all__'
+        fields = [
+            'id', 'name','slug', 'website', 'description', 'logo',
+            'contact_email', 'created_at', 'phone'
+        ]
+
+        read_only_fields = [ 'created_at']
 
 class JobSerializer(serializers.ModelSerializer):
     company = CompanySerializer(read_only=True)
@@ -19,18 +36,19 @@ class JobSerializer(serializers.ModelSerializer):
             'salary_min', 'salary_max', 'posted_by', 'posted_at',
             'is_active'
         ]
-        read_only_fields = ['id','posted_by','posted_at']
+        read_only_fields = ['posted_by','posted_at']
 
 class ApplicationSerializer(serializers.ModelSerializer):
-    resume = serializers.FileField(required=False, allow_null=True)
+    phone = PhoneSerializer(read_only=True)
+    phone_id = serializers.PrimaryKeyRelatedField(queryset=Phone.objects.all(), source='phone', write_only=True)
 
     class Meta:
         model = Application
         fields = [
-            'id', 'job', 'full_name', 'email', 'phone',
+            'id', 'job', 'full_name', 'email', 'phone', 'phone_id',
             'cover_letter', 'resume', 'created_at'
 
         ]
+        read_only_fields = ['status','created_at']
 
-    def create(self, validated_data):
-        return super().create(validated_data)
+  
