@@ -67,12 +67,13 @@ REST_FRAMEWORK = {
         "django_filters.rest_framework.DjangoFilterBackend"
     ],
 
-    'DEFAULT_PAGINATION_CLASSES': 
-        'rest_framework.pagination.PageNumberPagination',
-        'PAGE_SIZE': 10,
+    'DEFAULT_PAGINATION_CLASS': 'jobs.pagination.StandardPagination',
+    'PAGE_SIZE': 10,
+}
+
     
 
-}
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
