@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'jobs',
     'corsheaders',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
+        "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend"
+    ],
+
     'DEFAULT_PAGINATION_CLASSES': 
         'rest_framework.pagination.PageNumberPagination',
         'PAGE_SIZE': 10,
