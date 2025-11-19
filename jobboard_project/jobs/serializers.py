@@ -10,9 +10,6 @@ class PhoneSerializer(serializers.ModelSerializer):
         
 
 
-
-
-
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company

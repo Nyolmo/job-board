@@ -1,13 +1,12 @@
 from django.db import models
 
-from django.contrib.auth import get_user_model
+from user.models import User
 from django.forms import ValidationError
 from jobs.utils.country_codes import COUNTRY_CODE_CHOICES
 from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
 
 
-User = get_user_model()
 
 JOB_TYPE_CHOICES = [
     ('full_time', 'Full_time'),

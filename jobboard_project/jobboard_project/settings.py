@@ -92,6 +92,9 @@ MEDIA_URL = '/media'
 import os
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 
 
