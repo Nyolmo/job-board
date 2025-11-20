@@ -17,7 +17,7 @@ JOB_TYPE_CHOICES = [
 
 
 class AutoSlugModel(models.Model):
-    slug= models.SlugField(unique=True, blank=True, max_length=255)
+    slug= models.SlugField(unique=True, blank=True,null=True, max_length=255)
 
     slug_source_field = None
 
@@ -75,7 +75,6 @@ class Phone(models.Model):
 class Company(AutoSlugModel):
     slug_source_field = "name"
     name= models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, max_length=220)
     description = models.TextField(blank=True)
     website = models.URLField(blank=True)
     contact_email = models.EmailField(blank=True)
@@ -92,12 +91,11 @@ class Job(AutoSlugModel):
     slug_source_field = "title"
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, max_length=250)
     location = models.CharField(blank=False)
     remote = models.BooleanField(default=False)
     job_type = models.CharField(max_length=20, choices=JOB_TYPE_CHOICES, default="full_time")
     description = models.TextField(blank=False)
-    short_description = models.TextField(blank=False)
+    short_description = models.TextField(blank=True)
     salary_min = models.DecimalField(
         max_digits=10,
         decimal_places=2,
